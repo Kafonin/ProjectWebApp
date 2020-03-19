@@ -5,7 +5,7 @@ body, *{
 }
 .calendar
 {
-    background-color: rgb(180, 31, 31);
+    background-color: white;
     padding: 20px;
     box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
 }
@@ -15,7 +15,7 @@ body, *{
     display: none;
     position: absolute;
     background-color: #fff;
-    color: #ff4800;
+    color: #1caff6;
     text-align: center;
     font-size: 14pt;
     padding-top: 5px;
@@ -53,7 +53,7 @@ body, *{
 .calendar .calendar-btn
 {
     float: left;
-    background-color: #63975e;
+    background-color: #24aeff;
     color: white;
     text-align: center;
     font-size: 14pt;
@@ -66,7 +66,7 @@ body, *{
 }
 
 .calendar .calendar-btn:hover{
-    background-color:#79293d;
+    background-color:#1f71a1;
 }
 
 .calendar .year-btn
@@ -88,7 +88,7 @@ body, *{
 
 .calendar .calendar-dates .days .day.blank
 {
-    background-color: rgb(228, 13, 13);
+    background-color: white;
     border:none;
 }
 
@@ -129,3 +129,4 @@ body, *{
         left: 0px;
     }
 }
+            
