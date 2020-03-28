@@ -1,129 +1,120 @@
-var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-var startYear = 2000;
-var endYear = 2020;
-var month = 0;
-var year = 0;
-var selectedDays = new Array();
-var mousedown = false;
-var mousemove = false;
+const date_picker_element   = document.querySelector('.date-picker');
+const selected_date_element = document.querySelector('.date-picker .selected-date');
+const dates_element         = document.querySelector('.date-picker .dates');
+const mth_element           = document.querySelector('.date-picker .dates .month .mth');
+const next_mth_element      = document.querySelector('.date-picker .dates .month .next-mth');
+const prev_mth_element      = document.querySelector('.date-picker .dates .month .prev-mth');
+const days_element          = document.querySelector('.date-picker .dates .days');
 
-function loadCalendarMonths() {
-    for (var i = 0; i < months.length; i++) {
-        var doc = document.createElement("div");
-        doc.innerHTML = months[i];
-        doc.classList.add("dropdown-item");
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-        doc.onclick = (function () {
-            var selectedMonth = i;
-            return function () {
-                month = selectedMonth;
-                document.getElementById("curMonth").innerHTML = months[month];
-                loadCalendarDays();
-                return month;
-            }
-        })();
+let date    = new Date();
+let day     = date.getDate();
+let month   = date.getMonth();
+let year    = date.getFullYear();
 
-        document.getElementById("months").appendChild(doc);
+let selectedDate    = date;
+let selectedDay     = day;
+let selectedMonth   = month;
+let selectedYear    = year;
+
+mth_element.textContent             = months[month] + ' ' + year;
+
+selected_date_element.textContent   = formatDate(date);
+selected_date_element.dataset.value = selectedDate;
+
+populateDates();
+
+// Event listeners
+date_picker_element.addEventListener('click', toggleDatePicker);
+prev_mth_element.addEventListener('click', goToPrevMonth);
+next_mth_element.addEventListener('click', goToNextMonth);
+
+
+// Functions
+function toggleDatePicker(events) {
+    if (!checkEventPathForClass(events.path, 'dates')) {
+        dates_element.classList.toggle('active');
     }
 }
 
-function loadCalendarYears() {
-    document.getElementById("years").innerHTML = "";
+function goToNextMonth(events) {
+    month++;
+    if (month > 11) {
+        month = 0;
+        year++;
+    }
+    mth_element.textContent = months[month] + ' ' + year;
+    populateDates();
+}
 
-    for (var i = startYear; i <= endYear; i++) {
-        var doc = document.createElement("div");
-        doc.innerHTML = i;
-        doc.classList.add("dropdown-item");
+function goToPrevMonth(events) {
+    month--;
+    if (month < 0) {
+        month = 11;
+        year--;
+    }
+    mth_element.textContent = months[month] + ' ' + year;
+    populateDates();
+}
 
-        doc.onclick = (function () {
-            var selectedYear = i;
-            return function () {
-                year = selectedYear;
-                document.getElementById("curYear").innerHTML = year;
-                loadCalendarDays();
-                return year;
-            }
-        })();
+function populateDates(events) {
+    days_element.innerHTML = '';
 
-        document.getElementById("years").appendChild(doc);
+    let amount_days = 31;
+
+    if (month == 1) {
+        amount_days = 29;
+    }
+    if (month == 3 || month == 5 || month == 8 || month == 10) {
+        amount_days = 30;
+    }
+
+    for (let i = 0; i < amount_days; i++) {
+        const day_element       = document.createElement('div');    
+        day_element.classList.add('day');
+        day_element.textContent = i+1;
+
+        if (selectedDay == (i+1) && selectedYear == year && selectedMonth == month) {
+            day_element.classList.add('selected');
+        }
+
+        day_element.addEventListener('click', function () {
+            selectedDate                        = new Date(year + '-' + (month+1) + '-' + (i+1));
+            selectedDay                         = (i + 1);
+            selectedMonth                       = month;
+            selectedYear                        = year;
+            selected_date_element.textContent   = formatDate(selectedDate);
+            selected_date_element.dataset.value = selectedDate;
+
+            populateDates();
+        });
+
+        days_element.appendChild(day_element);
     }
 }
 
-function loadCalendarDays() {
-    document.getElementById("calendarDays").innerHTML = "";
-
-    var tmpDate = new Date(year, month, 0);
-    var num = daysInMonth(month, year);
-    var dayofweek = tmpDate.getDay();       // find where to start calendar day of week
-
-    for (var i = 0; i <= dayofweek; i++) {
-        var d = document.createElement("div");
-        d.classList.add("day");
-        d.classList.add("blank");
-        document.getElementById("calendarDays").appendChild(d);
+// Helper Functions
+function checkEventPathForClass(path, selector) {
+    for (let i = 0; i < path.length; i++) {
+        if(path[i].classList && path[i].classList.contains(selector)) {
+            return true;
+        }
+    }
+    return false;
+}
+function formatDate(d) {
+    let day = d.getDate();
+    if (day < 10) {
+        day = '0' + day;
     }
 
-    for (var i = 0; i < num; i++) {
-        var tmp = i + 1;
-        var d = document.createElement("div");
-        d.id = "calendarday_" + tmp;
-        d.className = "day";
-        d.innerHTML = tmp;
-        d.dataset.day = tmp;
-
-        d.addEventListener('click', function(){
-            this.classList.toggle('selected');
-
-            if (!selectedDays.includes(this.dataset.day))
-                selectedDays.push(this.dataset.day);
-
-            else
-                selectedDays.splice(selectedDays.indexOf(this.dataset.day), 1);
-        });
-
-        d.addEventListener('mousemove', function(e){
-           e.preventDefault();
-            if (mousedown)
-            {
-                this.classList.add('selected');
-
-                if (!selectedDays.includes(this.dataset.day))
-                    selectedDays.push(this.dataset.day);
-            }
-        });
-
-        d.addEventListener('mousedown', function(e){
-            e.preventDefault();
-            mousedown = true;
-        });
-        
-        d.addEventListener('mouseup', function(e){
-            e.preventDefault();
-            mousedown = false;
-        });
-
-        document.getElementById("calendarDays").appendChild(d);
+    let month = d.getMonth() + 1;
+    if (day < 10) {
+        day = '0' + month;
     }
 
-    var clear = document.createElement("div");
-    clear.className = "clear";
-    document.getElementById("calendarDays").appendChild(clear);
-}
+    let year = d.getFullYear();
 
-function daysInMonth(month, year)
-{
-    var d = new Date(year, month+1, 0);
-    return d.getDate();
+    return month + ' / ' + day + ' / ' + year;
 }
-
-window.addEventListener('load', function () {
-    var date = new Date();
-    month = date.getMonth();
-    year = date.getFullYear();
-    document.getElementById("curMonth").innerHTML = months[month];
-    document.getElementById("curYear").innerHTML = year;
-    loadCalendarMonths();
-    loadCalendarYears();
-    loadCalendarDays();
-});
-            

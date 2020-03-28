@@ -1,50 +1,31 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Date Picker</title>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" th:href="@{/css/calendar.css}">
+        <link rel="stylesheet" th:href="@{/css/calendar.css}" />
     </head>
+
     <body>
-        <div class="calendar" id="calendar">
-            <div class="calendar-btn month-btn" onclick="$('#months').toggle('fast')">
-                <span id="curMonth"></span>
-                <div id="months" class="months dropdown"></div>
-            </div>
-        
-            <div class="calendar-btn year-btn" onclick="$('#years').toggle('fast')">
-                <span id="curYear"></span>
-                <div id="years" class="years dropdown"></div>
-            </div>
-        
-            <div class="clear"></div>
-        
-            <div class="calendar-dates">
-                <div class="days">
-                    <div class="day label">Sun</div>
-                    <div class="day label">Mon</div>
-                    <div class="day label">Tue</div>
-                    <div class="day label">Wed</div>
-                    <div class="day label">Thur</div>
-                    <div class="day label">Fri</div>
-                    <div class="day label">Sat</div>
-        
-                    <div class="clear"></div>
+        <h1>CUSTOM<span>DATE</span>PICKER</h1>
+
+        <div class="date-picker">
+            <div class="selected-date"></div>
+
+            <div class="dates">
+                <div class="month">
+                    <div class="arrows prev-mth">&lt;</div>
+                    <div class="mth"></div>
+                    <div class="arrows next-mth">&gt;</div>
                 </div>
-        
-                <div id="calendarDays" class="days">
-                </div>
+
+                <div class="days"></div>
             </div>
         </div>
-                
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+
         <script th:src="@{/js/calendar.js}" async defer></script>
     </body>
 </html>
-            

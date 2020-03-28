@@ -1,132 +1,35 @@
-body, *{
-    padding:0px;
-    margin:0px;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-.calendar
-{
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
+
+body {
+    background-color: azure;
+    font-family: 'Saira', Arial, Helvetica, sans-serif;
 }
 
-.calendar .dropdown
-{
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    color: #1caff6;
+h1 {
+    margin: 30px;
+    color: antiquewhite;
+    font-size: 42px;
+    font-weight: 900;
     text-align: center;
-    font-size: 14pt;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 30px;
-    padding-right: 30px;
-    width: 160px;
-    left: 0px;
-    z-index: 2000;
 }
 
-.calendar .dropdown .dropdown-item
-{
-    cursor:pointer;
-    opacity: .7;
-    transition: .5s opacity;
+h1 span {
+    font-weight: 300;
 }
 
-.calendar .dropdown .dropdown-item:hover
-{
-    opacity: 1;
-}
-
-.calendar .years
-{
-    display:none;
-}
-
-.calendar .title
-{
-    text-align:center;
-    font-size:20pt;
-}
-
-.calendar .calendar-btn
-{
-    float: left;
-    background-color: #24aeff;
-    color: white;
-    text-align: center;
-    font-size: 14pt;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.date-picker {
     position: relative;
-    width: 20%;
+    width: 100%;
+    max-width: 320px;
+    height: 60px;
+    background-color: cornflowerblue;
+    margin: 30px auto;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+
     cursor: pointer;
-    transition: .5s background-color;
+    user-select: none;
 }
-
-.calendar .calendar-btn:hover{
-    background-color:#1f71a1;
-}
-
-.calendar .year-btn
-{
-    float:right;
-}
-
-.calendar .calendar-dates .days .day
-{
-    float:left;
-    width: 12%;
-    margin: 1%;
-    padding: 1%;
-    font-size:13pt;
-    text-align:center;
-    border-radius: 10px;
-    border: solid 1px #ddd;
-}
-
-.calendar .calendar-dates .days .day.blank
-{
-    background-color: white;
-    border:none;
-}
-
-.calendar .calendar-dates .days .day.selected
-{
-    background-color: #1caff6;
-    color: white;
-    cursor:pointer;
-    opacity: .5;
-    transition: .5s opacity;
-}
-
-.calendar .calendar-dates .days .day.selected:hover
-{
-    opacity: 1;
-}
-
-.calendar .calendar-dates .days .day.label
-{
-    height: 40px;
-    background-color: white;
-    color: black;
-    border:none;
-    font-weight:bold;
-}
-
-.clear{
-    clear:both;
-}
-
-@media only screen and (max-width: 960px) {
-    .calendar{
-        width: 100%;
-        margin: 0px;
-        margin: 0px;
-        box-sizing: border-box;
-        position: relative;
-        left: 0px;
-    }
-}
-            
