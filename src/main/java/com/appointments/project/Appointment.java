@@ -1,21 +1,24 @@
 package com.appointments.project;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * Appointment
  */
+@Entity
 public class Appointment 
 {
-    private @Id @GeneratedValue Long id;
-    private String  firstNameString;
-    private String  lastNameString;
-    private String  carBrandString;
-    private String  carModelString;
-    private int     carYearInt;
+    @Id
+    private @GeneratedValue Long    id;
+    private                 String  firstNameString;
+    private                 String  lastNameString;
+    private                 String  carBrandString;
+    private                 String  carModelString;
+    private                 int     carYearInt;
 
-    private Appointment() {}
+    protected Appointment() {}
 
     public Appointment(String firstNameString, String lastNameString, String carBrandString, 
                         String carModelString, int carYearInt)

@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <h1>CUSTOM<span>DATE</span>PICKER</h1>
+        <h1>Classy <span> Automobile </span> Repair</h1>
 
         <div class="date-picker">
             <div class="selected-date"></div>
@@ -22,10 +22,70 @@
                     <div class="arrows next-mth">&gt;</div>
                 </div>
 
-                <div class="days"></div>
+                <div class="days" id="myBtn"></div>
             </div>
         </div>
 
+        <!-- Test button goes here below -->
+        
+        <!-- Trigger/Open The Modal
+        <div align="center">
+            <button id="myBtn">Add User</button>
+            <br /> <br />
+            <button id="myBtn1">Get User</button>
+	    </div> -->
+
+        <!-- Modal-->
+        <div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<form action="/addAppointment">
+				<table style="padding: 5px; text-align: center;" align="center">
+					<tr>
+						<td>Name :</td>
+						<td><input type="text" name="firstNameString" placeholder="First Name" /></td>
+					</tr>
+					<tr>
+						<td>Last Name :</td>
+						<td><input type="text" name="lastNameString" placeholder="Last Name" /></td>
+					</tr>
+                    <tr>
+						<td>Car Brand :</td>
+						<td><input type="text" name="carBrandString" placeholder="Car Brand" /></td>
+					</tr>
+                    <tr>
+						<td>Car Model :</td>
+						<td><input type="text" name="carModelString" placeholder="Car Model" /></td>
+					</tr>
+                    <tr>
+						<td>Car Year :</td>
+						<td><input type="int" name="carYearInt" placeholder="Car Year" /></td>
+					</tr>
+				</table>
+				<center>
+					<input type="submit" value="addAppointment" />
+				</center>
+			</form>
+		</div>
+	</div>
+
+	</div>
         <script th:src="@{/js/calendar.js}" async defer></script>
+
+        <table border="1" cellpadding="5" cellspacing="5"
+		style="text-align: center;" align="center">
+		<tr>
+			<th>ID</th>
+			<th>NAME</th>
+			<th>ADDRESS</th>
+		</tr>
+		<tr th:each="appointment : ${appointments}">
+			<td th:text="${appointment.id}"></td>
+			<td th:text="${appointment.firstNameString}"></td>
+			<td th:text="${appointment.lastNameString}"></td>
+            
+		</tr>
+	</table>
     </body>
 </html>
