@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Date Picker</title>
+
+        <link rel="stylesheet" th:href="@{/css/calendar.css}" />
+    </head>
+
+    <body>
+        <h1>Classy <span> Automobile </span> Repair</h1>
+
+        <div class="date-picker">
+            <div class="selected-date"></div>
+
+            <div class="dates">
+                <div class="month">
+                    <div class="arrows prev-mth">&lt;</div>
+                    <div class="mth"></div>
+                    <div class="arrows next-mth">&gt;</div>
+                </div>
+
+                <div class="days" id="myBtn"></div>
+            </div>
+        </div>
+
+        <!-- Modal-->
+        <div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<form action="/addAppointment">
+				<table style="padding: 5px; text-align: center;" align="center">
+					<tr>
+						<td>First Name:</td>
+						<td><input type="text" name="firstNameString" placeholder="First Name" /></td>
+					</tr>
+					<tr>
+						<td>Last Name:</td>
+						<td><input type="text" name="lastNameString" placeholder="Last Name" /></td>
+					</tr>
+                    <tr>
+						<td>Car Brand:</td>
+						<td><input type="text" name="carBrandString" placeholder="Car Brand" /></td>
+					</tr>
+                    <tr>
+						<td>Car Model:</td>
+						<td><input type="text" name="carModelString" placeholder="Car Model" /></td>
+					</tr>
+                    <tr>
+						<td>Car Year:</td>
+						<td><input type="int" name="carYearInt" placeholder="Car Year" /></td>
+					</tr>
+					<tr>
+						<td>Appointment Time:</td>
+						<td><input type="int" name="appointmentTimeInt" placeholder="Time" /></td>
+					</tr>
+				</table>
+				<center>
+					<input type="submit" value="Create Appointment" />
+				</center>
+
+				<table border="1" cellpadding="5" cellspacing="5"
+				style="text-align: center;" align="center">
+				<tr>
+					<th>ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Car Year</th>
+					<th>Appointment</th>
+				</tr>
+				<tr th:each="appointment : ${appointments}">
+					<td th:text="${appointment.id}"></td>
+					<td th:text="${appointment.firstNameString}"></td>
+					<td th:text="${appointment.lastNameString}"></td>
+					<td th:text="${appointment.carYearInt}"></td>
+					<td th:text="${appointment.appointmentTimeInt}"></td>
+				</tr>
+			</table>
+			</form>
+		</div>
+	</div>
+
+	</div>
+        <script th:src="@{/js/calendar.js}" async defer></script>
+    </body>
+</html>
